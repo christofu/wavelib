@@ -12,28 +12,28 @@ int main() {
 	cwt_object wt;
 
 	FILE *ifp;
-	double temp[1200];
+	double temp[6200];
 
 	char *wave = "morlet";// Set Morlet wavelet. Other options "paul" and "dog"
 	char *type = "pow";
 
-	N = 504;
+	N = 1000;
 	param = 6.0;
 	subscale = 4;
-	dt = 0.25;
+	dt = 0.001;
 	s0 = dt;
-	dj = 1.0 / (double)subscale;
-	J = 11 * subscale; // Total Number of scales
+	dj = 0.25; //1.0 / (double)subscale;
+	J = 40; //11 * subscale; // Total Number of scales
 	a0 = 2;//power
 
-	ifp = fopen("sst_nino3.dat", "r");
+	ifp = fopen("sine04hz.dat", "r");
 	i = 0;
 	if (!ifp) {
 		printf("Cannot Open File");
 		exit(100);
 	}
 	while (!feof(ifp)) {
-		fscanf(ifp, "%lf \n", &temp[i]);
+		fscanf(ifp, "%lf\n", &temp[i]);
 		i++;
 	}
 
@@ -45,7 +45,7 @@ int main() {
 	oup = (double*)malloc(sizeof(double)* N);
 
 	for (i = 0; i < N; ++i) {
-		inp[i] = temp[i] ;
+		inp[i] = temp[i] * 5;
 	}
 
 	setCWTScales(wt, s0, dj, type, a0);
@@ -73,7 +73,15 @@ int main() {
 		iter = nd + k * N;
 		printf("%-15d%-15lf%-15lf%-15lf \n",k,wt->scale[k],wt->period[k],
 		wt->output[iter].re * wt->output[iter].re + wt->output[iter].im * wt->output[iter].im);
+//		if (k == 8) {
+//			for (int l = iter; l < nd + (k + 1) * N - 1; l++) 
+//				printf("%d = %lf\n", l, wt->output[l].re * wt->output[l].re + wt->output[l].im * wt->output[l].im);
+//		}
 	}
+	free(inp);
+	free(oup);
+	cwt_free(wt);
+	return 0;
 
 	icwt(wt, oup);
 
