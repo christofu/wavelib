@@ -22,8 +22,8 @@ int main() {
 	subscale = 4;
 	dt = 0.0025;
 	s0 = dt;
-	dj = 0.25; //1.0 / (double)subscale;
-	J = 40; //11 * subscale; // Total Number of scales
+	dj = 0.125; //1.0 / (double)subscale;
+	J = 80; //11 * subscale; // Total Number of scales
 	a0 = 2;//power
 
 	ifp = fopen("400sine42hz.dat", "r");
@@ -71,7 +71,7 @@ int main() {
 	printf("%-15s%-15s%-15s%-15s%-15s \n","j","Freq","Scale","Period","ABS(w)^2");
 	for(k = 0; k < wt->J;++k) {
 		iter = nd + k * N;
-		printf("%-15d%-15lf%-15lf%-15lf%-15lf \n",k, 0.96 / wt->scale[k], wt->scale[k],wt->period[k], //0.96 is approx the center freq (3.067962) * dj
+	printf("%-15d%-15lf%-15lf%-15lf%-15lf \n",k,  1 / wt->scale[k], wt->scale[k],wt->period[k], //0.96 is approx the center freq (3.067962) * dj
 		wt->output[iter].re * wt->output[iter].re + wt->output[iter].im * wt->output[iter].im);
 //		if (k == 26) {
 //			for (int l = iter; l < nd + (k + 1) * N - 1; l++) 

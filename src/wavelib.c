@@ -1578,6 +1578,7 @@ void cwt(cwt_object wt, const double *inp) {
 		npad = wt->npad;
 	}
 
+	printf("npad %d pflag %d N %d wt->npad %d\n", npad, wt->pflag, N, wt->npad);
 	nj2 = 2 * N * wt->J;
 	j = wt->J;
 	j2 = 2 * j;
@@ -1588,8 +1589,9 @@ void cwt(cwt_object wt, const double *inp) {
 		wt->smean += inp[i];
 	}
 	wt->smean /= N;
+	wt->freq = 2.0 * (4.0 * atan(1.0)) / ((double) npad * wt->dt);  // 4.0 * atan(1.0) = pi
 
-	cwavelet(inp, N, wt->dt, wt->mother, wt->m, wt->s0,wt->dj,wt->J,npad,wt->params, wt->params+nj2, wt->params+nj2+j, wt->params+nj2+j2);
+	cwavelet(inp, N, wt->dt, wt->mother, wt->m, wt->s0,wt->dj,wt->J,npad,wt->params, wt->params+nj2, wt->params+nj2+j, wt->params+nj2+j2, wt->freq);
 
 }
 

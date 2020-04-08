@@ -181,6 +181,7 @@ struct cwt_set{
 	int pflag;
 	int npad;
 	int mother;
+	double freq;
 	double m;// Wavelet parameter param
 	double smean;// Input Signal mean
 

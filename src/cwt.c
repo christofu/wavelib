@@ -119,7 +119,7 @@ static void wave_function(int nk, double dt,int mother, double param,double scal
 }
 
 void cwavelet(const double *y, int N, double dt, int mother, double param, double s0, double dj, int jtot, int npad,
-	double *wave, double *scale, double *period, double *coi) {
+	double *wave, double *scale, double *period, double *coi, double freq) {
 
 	int i, j, k, iter;
 	double ymean, freq1, pi, period1, coi1;
@@ -177,14 +177,17 @@ void cwavelet(const double *y, int N, double dt, int mother, double param, doubl
 	//Construct the wavenumber array
 
 	freq1 = 2.0*pi / ((double)npad*dt);
+	printf("npad %d freq1 = %lf freq = %lf\n", npad, freq1, freq);
 	kwave[0] = 0.0;
 
 	for (i = 1; i < npad / 2 + 1; ++i) {
 		kwave[i] = i * freq1;
+//		printf("kwave[%d] = %lf\n", i, kwave[i]);
 	}
 
 	for (i = npad / 2 + 1; i < npad; ++i) {
 		kwave[i] = -kwave[npad - i ];
+//		printf("kwave[%d] = %lf\n", i, kwave[i]);
 	}
 
 	
@@ -298,7 +301,7 @@ double cdelta(int mother, double param, double psi0 ) {
 	int N,i,j,iter;
 	double *delta, *scale,*period,*wave,*coi,*mval;
 	double den,cdel;
-	double subscale,dt,dj,s0;
+	double subscale,dt,dj,s0, freq;
 	int jtot;
 	int maxarr;
 
@@ -343,8 +346,9 @@ double cdelta(int mother, double param, double psi0 ) {
 	for (i = 0; i < jtot; ++i) {
 		scale[i] = s0*pow(2.0, (double)(i)*dj);
 	}
+	freq = 2.0 * (4.0 * atan(1.0)) / ((double) N * dt);
 
-	cwavelet(delta, N, dt, mother, param, s0, dj, jtot, N, wave, scale, period, coi);
+	cwavelet(delta, N, dt, mother, param, s0, dj, jtot, N, wave, scale, period, coi, freq);
 
 	for (i = 0; i < N; ++i) {
 		mval[i] = 0;
