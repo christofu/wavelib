@@ -17,7 +17,7 @@ int main() {
 	char *wave = "morlet";// Set Morlet wavelet. Other options "paul" and "dog"
 	char *type = "pow";
 
-	N = 1000;
+	N = 256;
 	param = 6.0;
 	subscale = 4;
 	dt = 0.0025;
@@ -26,7 +26,7 @@ int main() {
 	J = 80; //11 * subscale; // Total Number of scales
 	a0 = 2;//power
 
-	ifp = fopen("400sine42hz.dat", "r");
+	ifp = fopen("400sine10hz.dat", "r");
 	i = 0;
 	if (!ifp) {
 		printf("Cannot Open File");

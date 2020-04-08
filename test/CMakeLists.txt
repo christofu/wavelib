@@ -2,6 +2,10 @@ add_executable(cwttest cwttest.c)
 
 target_link_libraries(cwttest wavelib)
 
+add_executable(fcomp fcomp.c)
+
+target_link_libraries(fcomp wavelib)
+
 add_executable(dwttest dwttest.c)
 
 target_link_libraries(dwttest wavelib)
@@ -44,6 +48,7 @@ target_link_libraries(modwt2test wavelib)
 
 if(UNIX)
 	target_link_libraries(cwttest m)
+	target_link_libraries(fcomp m)
 	target_link_libraries(dwttest m)
 	target_link_libraries(swttest m)
 	target_link_libraries(modwttest m)
@@ -56,7 +61,7 @@ if(UNIX)
 	target_link_libraries(modwt2test m)
 endif()
 
-set_target_properties(cwttest dwttest swttest modwttest dwpttest wtreetest denoisetest modwtdenoisetest dwt2test swt2test modwt2test
+set_target_properties(cwttest fcomp dwttest swttest modwttest dwpttest wtreetest denoisetest modwtdenoisetest dwt2test swt2test modwt2test
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/test"
         )

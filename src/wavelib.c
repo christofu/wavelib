@@ -1578,7 +1578,7 @@ void cwt(cwt_object wt, const double *inp) {
 		npad = wt->npad;
 	}
 
-	printf("npad %d pflag %d N %d wt->npad %d\n", npad, wt->pflag, N, wt->npad);
+	//printf("npad %d pflag %d N %d wt->npad %d\n", npad, wt->pflag, N, wt->npad);
 	nj2 = 2 * N * wt->J;
 	j = wt->J;
 	j2 = 2 * j;

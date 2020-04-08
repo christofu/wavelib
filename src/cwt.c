@@ -176,8 +176,11 @@ void cwavelet(const double *y, int N, double dt, int mother, double param, doubl
 
 	//Construct the wavenumber array
 
-	freq1 = 2.0*pi / ((double)npad*dt);
-	printf("npad %d freq1 = %lf freq = %lf\n", npad, freq1, freq);
+	if (freq > 0) {
+		freq1 = freq;
+	} else {
+		freq1 = 2.0*pi / ((double)npad*dt);
+	}
 	kwave[0] = 0.0;
 
 	for (i = 1; i < npad / 2 + 1; ++i) {
